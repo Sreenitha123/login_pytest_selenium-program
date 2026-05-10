@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail Login Page</title>
+
+    <style>
+
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: #f1f3f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .container{
+            width: 400px;
+            margin: 80px auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px black;
+            text-align: center;
+        }
+
+        .logo{
+            width: 50px;
+            margin-bottom: 20px;
+        }
+
+        h2{
+            margin: 10px 0;
+            font-weight: normal;
+        }
+
+        p{
+            color: gray;
+            margin-bottom: 30px;
+        }
+
+        input{
+            width: 95%;
+            padding: 14px;
+            margin-bottom: 30px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button{
+            width: 100%;
+            padding: 14px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover{
+            background-color: #1558b0;
+        }
+        .show-password{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 20px
+        }
+        .show-password input{
+            width: auto;
+            margin-right: 8px;
+            margin-bottom: 0;
+        }
+
+    </style>
+</head>
+<script>
+function validateLogin(event) {
+
+    event.preventDefault();
+
+    let email =
+        document.getElementById("email").value.trim();
+
+    let password =
+        document.getElementById("password").value.trim();
+
+    let success =
+        document.getElementById("success");
+
+    // Valid email
+    let existingEmail =
+        "lingampallisreenitha@gmail.com";
+
+    // Valid password
+    let existingPassword =
+        "Sree@2002";
+
+    // Gmail pattern
+    let gmailPattern =
+        /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+    // Password pattern
+    let passwordPattern =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+
+    // Empty validation
+    if (email === "" || password === "") {
+
+        success.style.color = "red";
+        success.innerHTML =
+            "All fields are required";
+    }
+
+    // Email format validation
+    else if (!gmailPattern.test(email)) {
+
+        success.style.color = "red";
+        success.innerHTML =
+            "Enter valid Gmail address";
+    }
+
+    // Password rule validation
+    else if (!passwordPattern.test(password)) {
+
+        success.style.color = "red";
+        success.innerHTML =
+            "Password must contain uppercase, lowercase, number, special character and minimum 8 characters";
+    }
+
+    // Existing email check
+    else if (email !== existingEmail) {
+
+        success.style.color = "red";
+        success.innerHTML =
+            "Email does not exist";
+
+        document.getElementById("signup-message").innerHTML =
+            'Please <a href="signup.html">Signup</a>';
+    }
+
+    // Exact password check
+    else if (password !== existingPassword) {
+
+        success.style.color = "red";
+        success.innerHTML =
+            "Incorrect Password";
+    }
+
+    // Success
+    else {
+
+        success.style.color = "green";
+        success.innerHTML =
+            "Login Successful";
+    }
+}
+
+function togglePassword(){
+
+    let password =
+    document.getElementById("password");
+
+    if(password.type === "password"){
+
+        password.type = "text";
+    }
+    else{
+
+        password.type = "password";
+    }
+}
+
+</script>
+<body>
+
+    <div class="container">
+
+        <img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+             alt="Google Logo"
+             class="logo">
+
+        <h2>Sign in</h2>
+        <h3 id="success"></h3>
+
+        <p>Use your Google Account</p>
+
+        <form onsubmit="validateLogin(event)">
+
+            <input type="email"
+                   id="email"
+                   placeholder="Email or phone"
+                   required>
+
+            <input type="password"
+                   id="password"
+                   placeholder="Enter your password"
+                   required>
+            <br><br>
+            <div class="show-password">
+                <input type="checkbox" id="check" onclick="togglePassword()">
+                <label for="check">Show Password</label>
+            </div>
+            <button type="submit" id="signin">
+                sign in
+            </button>
+            <p id="sign-message"></p>
+        </form>
+
+    </div>
+
+</body>
+</html>
